@@ -6,6 +6,7 @@
 <title>The potato that cost sixteen times its price · Maximo Segundo Fonrouge</title>
 <meta name="description" content="A unit mistake on supplier invoices made the costs of 65 recipes wrong. Finding it and fixing it without touching a single total.">
 <meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-09-08">
 <meta property="og:site_name" content="Maximo Segundo Fonrouge">
 <meta property="og:title" content="The potato that cost sixteen times its price">
 <meta property="og:description" content="A unit mistake on supplier invoices made the costs of 65 recipes wrong. Finding it and fixing it without touching a single total.">
@@ -34,7 +35,7 @@ a:hover { text-decoration-color:var(--ember); color:#fff; }
 .top .home { font-size:17px; }
 .top .back { font:14px var(--sans); color:var(--muted); }
 article { padding:72px 0 16px; }
-.date { font:14px var(--sans); color:var(--faint); }
+.date { display:block; font:14px var(--sans); color:var(--faint); }
 h1 { font-weight:400; font-size:40px; line-height:1.15; margin:8px 0 28px; }
 article p { color:var(--soft); }
 article p + p { margin-top:18px; }
@@ -50,14 +51,14 @@ footer { padding:72px 0 56px; color:var(--faint); font:14px var(--sans); }
 <div class="top"><div class="col"><a class="home" href="../../">Maximo Segundo Fonrouge</a><a class="back" href="../../#writing">Writing</a></div></div>
 <main class="col">
 <article>
-<div class="date">Sep 2026</div>
+<time class="date" datetime="2026-09-08">Sep 2026</time>
 <h1>The potato that cost sixteen times its price</h1>
 <p>Potatoes were costing a kitchen sixteen times what the supplier charged. Not in real life: in the system. And because potatoes go into many dishes, the error was in 65 recipes. A portion of fries came out at more than fifteen times its real cost.</p>
 <p>The cause was simple. Suppliers bill by the bag or by the box. The system read those lines as if they were per kilo or per unit. One bag became one kilo, and the price per kilo went through the roof.</p>
 <p>I found it because some recipe costs looked absurd. Then I checked them against what was actually paid that same week. Once the pattern was clear, I wrote a fix that converts bags and boxes into real units without changing any invoice total or tax. It ran first as a test, and every change could be undone.</p>
 <p>In the end, 366 invoice lines on 137 invoices were corrected, and 81 ingredient costs were repaired. The real result is harder to count: recipe costs became numbers people could use to set prices again.</p>
 </article>
-<nav class="next"><a href="../../#writing">← All writing</a><a href="../stock-in-transit/">Next: Stock that left and never arrived →</a></nav>
+<nav class="next"><a href="../../#writing">← All writing</a><a href="../one-click-proposals/">Next: Sending a proposal in one click →</a></nav>
 </main>
 <footer><div class="col">Maximo Segundo Fonrouge · Buenos Aires</div></footer>
 </body>

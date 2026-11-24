@@ -6,6 +6,7 @@
 <title>Sending a proposal in one click · Maximo Segundo Fonrouge</title>
 <meta name="description" content="A button that made the PDFs and then stopped. What it took to make it send the whole proposal to the client, safely.">
 <meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-09-07">
 <meta property="og:site_name" content="Maximo Segundo Fonrouge">
 <meta property="og:title" content="Sending a proposal in one click">
 <meta property="og:description" content="A button that made the PDFs and then stopped. What it took to make it send the whole proposal to the client, safely.">
@@ -34,7 +35,7 @@ a:hover { text-decoration-color:var(--ember); color:#fff; }
 .top .home { font-size:17px; }
 .top .back { font:14px var(--sans); color:var(--muted); }
 article { padding:72px 0 16px; }
-.date { font:14px var(--sans); color:var(--faint); }
+.date { display:block; font:14px var(--sans); color:var(--faint); }
 h1 { font-weight:400; font-size:40px; line-height:1.15; margin:8px 0 28px; }
 article p { color:var(--soft); }
 article p + p { margin-top:18px; }
@@ -50,14 +51,14 @@ footer { padding:72px 0 56px; color:var(--faint); font:14px var(--sans); }
 <div class="top"><div class="col"><a class="home" href="../../">Maximo Segundo Fonrouge</a><a class="back" href="../../#writing">Writing</a></div></div>
 <main class="col">
 <article>
-<div class="date">Sep 2026</div>
+<time class="date" datetime="2026-09-07">Sep 2026</time>
 <h1>Sending a proposal in one click</h1>
 <p>An events team has a button that makes the PDF files for a proposal, and then stops. After that, someone opens WhatsApp, looks for the client, pastes the text and attaches each file by hand. They send about 35 proposals a week.</p>
 <p>I made the button finish the job. Now it sends the text and every PDF to the client on WhatsApp, and leaves a note on the proposal saying it was sent.</p>
 <p>The hard part was the phone number. The number on file was wrong for more than a third of the contacts. So the tool takes the number from the real conversation with the client, not from the old contact card.</p>
 <p>It also has five safety stops: no phone, no files, already sent, a number that is not on WhatsApp, or a message that failed. It downloads every file before it sends the first message, so a client never gets half a proposal.</p>
 </article>
-<nav class="next"><a href="../../#writing">← All writing</a><a href="../sales-control-room/">Next: A control room for outbound sales →</a></nav>
+<nav class="next"><a href="../../#writing">← All writing</a><a href="../missing-invoices/">Next: Half the invoices were missing →</a></nav>
 </main>
 <footer><div class="col">Maximo Segundo Fonrouge · Buenos Aires</div></footer>
 </body>
