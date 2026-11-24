@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A week of patches · Maximo Segundo Fonrouge</title>
+<meta name="description" content="In one week, serious flaws showed up in nginx, PHP and the libraries that check certificates. What I did on the servers I run, and what I learned.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Maximo Segundo Fonrouge">
+<meta property="og:title" content="A week of patches">
+<meta property="og:description" content="In one week, serious flaws showed up in nginx, PHP and the libraries that check certificates. What I did on the servers I run, and what I learned.">
+<meta property="og:url" content="https://msfonrouge.com/writing/a-week-of-patches/">
+<meta property="og:image" content="https://msfonrouge.com/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A painted fogón on a beach at night, with a guitar on the sand">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500&display=swap"></noscript>
+<style>
+:root { --night:#0e0f13; --text:#e9e3d8; --soft:#cfc8bc; --muted:#a39b8f; --faint:#6c665c; --line:#24252c; --ember:#f0a868;
+  --serif:"Newsreader", Georgia, serif; --sans:"Inter", system-ui, sans-serif; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:var(--night); color:var(--text); font:20px/1.65 var(--serif); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+a { color:inherit; text-decoration-color:var(--faint); text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-color:var(--ember); color:#fff; }
+.col { max-width:640px; margin:0 auto; padding:0 24px; }
+.top { padding:28px 0 0; }
+.top .col { display:flex; justify-content:space-between; align-items:baseline; gap:16px; }
+.top a { text-decoration:none; }
+.top .home { font-size:17px; }
+.top .back { font:14px var(--sans); color:var(--muted); }
+article { padding:72px 0 16px; }
+.date { font:14px var(--sans); color:var(--faint); }
+h1 { font-weight:400; font-size:40px; line-height:1.15; margin:8px 0 28px; }
+article p { color:var(--soft); }
+article p + p { margin-top:18px; }
+.next { border-top:1px solid var(--line); margin-top:48px; padding-top:24px; font:15px var(--sans); color:var(--muted);
+  display:flex; justify-content:space-between; gap:12px 20px; flex-wrap:wrap; }
+.next a { text-decoration:none; }
+.next a:hover { text-decoration:underline; text-decoration-color:var(--ember); }
+footer { padding:72px 0 56px; color:var(--faint); font:14px var(--sans); }
+@media (max-width:640px) { body { font-size:18px; } .col { padding:0 16px; } .top { padding-top:18px; } article { padding-top:48px; } h1 { font-size:31px; } }
+</style>
+</head>
+<body>
+<div class="top"><div class="col"><a class="home" href="../../">Maximo Segundo Fonrouge</a><a class="back" href="../../#writing">Writing</a></div></div>
+<main class="col">
+<article>
+<div class="date">Nov 2026</div>
+<h1>A week of patches</h1>
+<p>I run a few servers myself: small virtual machines that keep a business's ERP, its web pages and my own apps online. Nobody else watches them. So when a security flaw comes out, the job is mine.</p>
+<p>In November, several came out at once.</p>
+<p>First, nginx, the program that receives every visitor and passes them to the right site. Two bugs in its HTTP/2 code let anyone on the internet run code on the server, with no password. They were rated critical, and attack code was already public.</p>
+<p>One server was affected. It ran the nginx that comes with Ubuntu, and Ubuntu's fix was not out yet. Waiting was not an option, and swapping nginx in a hurry could break fifteen sites. So that same day I turned off HTTP/2. Both bugs need it, and pages got only a little slower, with no downtime. In the meantime I tested the newer nginx against the real settings in a separate container, without touching the live server.</p>
+<p>Two days later, the nightly security update installed Ubuntu's fix.</p>
+<p>Then PHP. A critical flaw appeared in PHP-FPM, the part that runs PHP pages. I checked whether it was really in use instead of guessing: it was running, and four sites sent requests to it. The fix had come out after the nightly update, so I installed it by hand, at a quiet hour, and then opened every site, the ERP included, to make sure they still worked. The new kernel waited for the automatic restart at four in the morning.</p>
+<p>At the same time, the audit tool for my own code found four vulnerable libraries, three of them in the code that checks TLS certificates. I updated them, and nothing was released until the audit came back clean.</p>
+<p>The other server was not affected by any of the server flaws. It has no nginx and no PHP. It uses a single web server, Caddy, and my apps. Fewer pieces means fewer things to patch.</p>
+<p>A few things I keep from that week:</p>
+<p>Automatic security updates every night are the base, not the plan. They only install what your Linux distribution has already released, and that can come days after the fix exists.</p>
+<p>Know what is actually running. "PHP is installed" and "four sites depend on PHP" lead to very different decisions.</p>
+<p>Have a cheap way to stop the bleeding, like turning off one feature, so the real fix can be done calmly and tested first.</p>
+<p>And mixing two sources for the same program is a trap. One server had both Ubuntu's nginx and the official one available. The nightly update used one, and a manual update would have silently jumped to the other.</p>
+<p>None of this is exciting. That is why it is easy to skip, and why <a href="../hidden-spam/">a public form can end up full of hidden spam</a>.</p>
+</article>
+<nav class="next"><a href="../../#writing">← All writing</a><a href="../hidden-spam/">Next: Spam hidden in an official form →</a></nav>
+</main>
+<footer><div class="col">Maximo Segundo Fonrouge · Buenos Aires</div></footer>
+</body>
+</html>
