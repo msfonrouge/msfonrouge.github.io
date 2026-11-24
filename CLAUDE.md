@@ -16,7 +16,7 @@ Personal site of Maximo Segundo Fonrouge. GitHub Pages publishes the `main` bran
 - Each page is one HTML file with inline CSS. No frameworks.
 - Check every change at 390 px and 1440 px wide. There must be no sideways scroll.
 - The site is a personal site, not a work portfolio. No CV. Every number must come from real records. Do not name the client business or say the work was for one client.
-- No health or hospital examples on the page.
+- Health topics may appear, but only indirectly (no hospitals, patients or medical detail up front). Keep the story about the problem, not the medical setting.
 
 ## Rendering the old Blender scene
 
