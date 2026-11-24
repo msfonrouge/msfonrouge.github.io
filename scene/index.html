@@ -101,6 +101,7 @@ function layout(W, H) {
     tower: W * (P ? .64 : .655),
   };
   o.fenceY = x => o.fenceL + (o.fenceR - o.fenceL) * (x / W) + 3 * s * Math.sin(x * .004 + 1);
+  o.shoreY = x => o.shore + 1.5 * s * Math.sin(x * .02) + s * Math.sin(x * .07) + 1.1 * s * Math.sin(x * .17 + 1) * Math.sin(x * .031) + .6 * s * Math.sin(x * .41 + 3);
   o.edge = x => o.fenceY(x) + 7 * s + 6 * s * Math.sin(x * .0055 / Math.max(s, .5) + .7) + 2.5 * s * Math.sin(x * .021 + 2);
   o.hlY = x => {
     if (x < o.hlStart) return o.hz;
@@ -228,12 +229,11 @@ function paintFar(ctx) {
   // beach strip
   ctx.fillStyle = lin(ctx, 0, shore, 0, L.fenceL + 20 * s, [[0, '#3a4058'], [1, '#2a2f45']]);
   ctx.beginPath(); ctx.moveTo(-M, shore);
-  for (let x = -M; x <= W + M; x += 6) ctx.lineTo(x, shore + 1.5 * s * Math.sin(x * .02) + s * Math.sin(x * .07));
+  for (let x = -M; x <= W + M; x += 3) ctx.lineTo(x, L.shoreY(x));
   ctx.lineTo(W + M, H + M); ctx.lineTo(-M, H + M); ctx.closePath(); ctx.fill();
   ctx.save(); ctx.clip();
-  // wet sand sheen
-  ctx.fillStyle = lin(ctx, 0, shore, 0, shore + 9 * s, [[0, 'rgba(130,145,185,.35)'], [1, 'rgba(130,145,185,0)']]);
-  ctx.fillRect(-M, shore, W + 2 * M, 9 * s);
+  // wet sand: a faint, uneven shine in patches (the moving wash does the rest)
+  for (let x = -M; x < W + M; x += R(30, 90) * s) blob(ctx, x, shore + R(2, 6) * s, R(30, 90) * s, R(2, 4) * s, [130, 145, 185], R(.04, .12));
   blob(ctx, mx, shore + 4 * s, 80 * sc, 4 * s, [200, 205, 220], .35);
   dabs(ctx, 260, -M, shore, W + 2 * M, 50 * s, [[70, 76, 100], [42, 46, 66], [86, 90, 112]], 4 * s, 16 * s, .05, .12, .3);
   ctx.restore();
@@ -636,7 +636,7 @@ function drawBack(ctx, t, ox, oy) {
   };
   const reachX = x => Math.max(0, (L.edge(x) - shore) * .42) * (.8 + .2 * Math.sin(x * .009 + 2) + .08 * Math.sin(x * .031));
   const bump = x => 1.6 * s * Math.sin(x * .083 + 1) * Math.sin(x * .021) + .9 * s * Math.sin(x * .19 + 2) + .6 * s * Math.sin(x * .05 + t * .8);
-  const edgeY = (x, k) => shore + wy + k * (reachX(x) + bump(x));
+  const edgeY = (x, k) => L.shoreY(x) + wy + k * (reachX(x) + bump(x));
   const xs = [], st = [];
   for (let x = -12; x <= W + 12; x += 6) { xs.push(x); st.push(at(x)); }
   // wet sand left by each run-up, drying out
@@ -648,9 +648,9 @@ function drawBack(ctx, t, ox, oy) {
     ctx.fillStyle = `rgba(14,18,34,${al.toFixed(3)})`; ctx.fill();
   }
   // the sheet of water on the sand
-  ctx.beginPath(); ctx.moveTo(xs[0] + wx, shore + wy - 2 * s);
-  xs.forEach((x, i) => ctx.lineTo(x + wx, edgeY(x, st[i].e)));
-  ctx.lineTo(xs[xs.length - 1] + wx, shore + wy - 2 * s); ctx.closePath();
+  ctx.beginPath(); xs.forEach((x, i) => i ? ctx.lineTo(x + wx, L.shoreY(x) + wy - 1.5 * s) : ctx.moveTo(x + wx, L.shoreY(x) + wy - 1.5 * s));
+  for (let i = xs.length - 1; i >= 0; i--) ctx.lineTo(xs[i] + wx, edgeY(xs[i], st[i].e));
+  ctx.closePath();
   ctx.fillStyle = lin(ctx, 0, shore + wy, 0, shore + wy + reachX(mx) * .7 + 2 * s, [[0, 'rgba(30,40,70,.4)'], [1, 'rgba(90,104,150,.22)']]); ctx.fill();
   // soft glow behind the foam, segment by segment so each stretch fades on its own
   ctx.lineWidth = 6 * s; ctx.lineCap = 'round';
@@ -664,14 +664,6 @@ function drawBack(ctx, t, ox, oy) {
     const q = at(f.x), a = q.fa * f.n; if (a < .01 || q.back > f.n) continue;
     ctx.fillStyle = `rgba(222,228,242,${a.toFixed(3)})`;
     ctx.beginPath(); ctx.ellipse(f.x + wx, edgeY(f.x, q.e) + f.dy * (.5 + q.e), f.rx * (1 - q.back * .5), f.ry, f.rot, 0, TAU); ctx.fill();
-  }
-  // the next wave building just off the shore, where that stretch is about to break
-  for (let i = 0; i < xs.length - 1; i++) {
-    const q = st[i]; if (q.ph < .62) continue;
-    const k = (q.ph - .62) / .38, al = Math.sin(Math.PI * k) * .22; if (al < .01) continue;
-    const y = x => shore + wy - (1 - k) * 18 * s - 1.5 * s + 1.4 * s * Math.sin(x * .012 + 1) + s * Math.sin(x * .043);
-    ctx.beginPath(); ctx.moveTo(xs[i] + wx, y(xs[i])); ctx.lineTo(xs[i + 1] + wx, y(xs[i + 1]));
-    ctx.strokeStyle = `rgba(190,202,232,${al.toFixed(3)})`; ctx.lineWidth = (1 + k) * s; ctx.stroke();
   }
 }
 function drawGrass(ctx, t, ox, oy) {
