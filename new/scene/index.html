@@ -351,7 +351,7 @@ function paintFence(ctx) {
   }
 }
 
-// ---------- props: stones, logs, guitar, mate, notebook ----------
+// ---------- props: stones, logs, guitar, notebook ----------
 function paintProps(ctx) {
   const { fx, fy, P } = L, s = L.ps; seed(51);
   // foreground dune shoulders, closer to the eye
@@ -389,10 +389,8 @@ function paintProps(ctx) {
   for (const t of st) if (t[1] > fy) stone(ctx, ...t);
   // objects, with long soft shadows thrown away from the fire
   const cast = (ox, oy, len, wid, k = .24) => { const a = Math.atan2((oy - fy) * 2.2, ox - fx), dx = Math.cos(a), dy = Math.sin(a) * .45, rot = Math.atan2(dy, dx); for (let i = 1; i <= 4; i++) blob(ctx, ox + dx * len * i / 4, oy + dy * len * i / 4, len * .42, wid * (1 - i * .14), [5, 4, 12], k, rot); };
-  cast(fx - (P ? 100 : 135) * s, fy + (P ? 50 : 36) * s + 18 * s, 70 * s, 14 * s);
   cast(fx - (P ? 30 : 58) * s, fy + (P ? 92 : 74) * s + 4 * s, 46 * s, 10 * s, .3);
   cast(fx + (P ? 112 : 168) * s, fy + (P ? 62 : 30) * s + 12 * s, 110 * s, 30 * s, .26);
-  mate(ctx, fx - (P ? 100 : 135) * s, fy + (P ? 50 : 36) * s, s);
   notebook(ctx, fx - (P ? 30 : 58) * s, fy + (P ? 92 : 74) * s, s);
   guitar(ctx, fx + (P ? 112 : 168) * s, fy + (P ? 62 : 30) * s, s * (P ? .82 : 1), P ? -.95 : -.32);
   // light falloff over everything on this layer: warm near the fire, moonlit blue away from it
