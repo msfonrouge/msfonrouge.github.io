@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maximo Segundo Fonrouge</title>
+<meta name="description" content="Maximo Segundo Fonrouge builds small software in Buenos Aires.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --night: #0e0f13;
+  --text: #e9e3d8;
+  --muted: #9a9286;
+  --faint: #5f5950;
+  --line: #24252c;
+  --ember: #f0a868;
+  --serif: "Newsreader", Georgia, serif;
+  --sans: "Inter", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--night);
+  color: var(--text);
+  font: 20px/1.6 var(--serif);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration-color: var(--faint); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-color: var(--ember); color: #fff; }
+.col { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+
+/* Header */
+header { position: absolute; top: 0; left: 0; right: 0; z-index: 2; padding: 28px 0; }
+header .col { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.name { font-size: 18px; text-decoration: none; }
+nav { display: flex; gap: 22px; font: 14px var(--sans); color: #c9c2b6; }
+nav a { text-decoration: none; }
+
+/* The scene */
+.scene { position: relative; }
+.scene img {
+  display: block; width: 100%; height: min(78vh, 56.25vw); min-height: 340px;
+  object-fit: cover; object-position: 38% 50%;
+}
+.scene::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30%;
+  background: linear-gradient(to bottom, transparent, var(--night));
+  pointer-events: none;
+}
+
+/* Text */
+.intro { padding: 8px 0 24px; }
+h1 { font-weight: 400; font-size: 40px; line-height: 1.2; margin-bottom: 22px; }
+p + p { margin-top: 16px; }
+.intro p { color: #cfc8bc; }
+
+section { padding: 48px 0 8px; }
+h2 {
+  font: 500 12px var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 22px;
+}
+
+.list { list-style: none; }
+.list li { padding: 14px 0; border-top: 1px solid var(--line); }
+.list li:last-child { border-bottom: 1px solid var(--line); }
+.row { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
+.row .when { font: 14px var(--sans); color: var(--faint); white-space: nowrap; }
+.list .desc { color: var(--muted); font-size: 17px; margin-top: 2px; }
+.list a { text-decoration: none; }
+.list a:hover .title { color: #fff; text-decoration: underline; text-decoration-color: var(--ember); }
+
+.elsewhere { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+
+footer { padding: 72px 0 56px; color: var(--faint); font: 14px var(--sans); }
+
+@media (max-width: 640px) {
+  body { font-size: 18px; }
+  .col { padding: 0 16px; }
+  header { padding: 20px 0; }
+  header .col { flex-direction: column; gap: 6px; }
+  nav { gap: 18px; }
+  .scene img { height: 62vh; min-height: 0; object-position: 34% 50%; }
+  h1 { font-size: 32px; }
+  .row { flex-direction: column; gap: 0; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="col">
+    <a class="name" href="#">Maximo Segundo Fonrouge</a>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#writing">Writing</a>
+      <a href="#elsewhere">Elsewhere</a>
+    </nav>
+  </div>
+</header>
+
+<!-- The beach at night, rendered in Blender from scene/build.py. -->
+<div class="scene">
+  <picture>
+    <source media="(max-width: 700px)" srcset="img/beach-night-small.jpg">
+    <img src="img/beach-night.jpg" width="1920" height="1080"
+         alt="A fogón burning on a beach at night, with the moon over the sea and a small lit skyline on the far shore.">
+  </picture>
+</div>
+
+<main class="col">
+
+  <div class="intro" id="about">
+    <h1>Hi, I'm Maximo Segundo Fonrouge.</h1>
+    <p>I build small pieces of software in Buenos Aires. Most of them start as a real problem in a real business: a kitchen that runs out of stock, a quote that takes a day to send, an invoice nobody loaded.</p>
+    <p>Lately I build almost everything with AI, often from my phone. I write here about what works, what breaks, and what I'd do differently. Away from the screen, I'm learning guitar for a fogón in February.</p>
+  </div>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <ul class="list">
+      <li><a href="#"><div class="row"><span class="title">Tallyfork</span><span class="when">2026</span></div>
+        <p class="desc">Software for catering companies: menus, quotes, events and kitchen prep.</p></a></li>
+      <li><a href="#"><div class="row"><span class="title">Alzaprima</span><span class="when">In progress</span></div>
+        <p class="desc">An assistant that answers WhatsApp inquiries and sends a real quote in a minute.</p></a></li>
+      <li><a href="#"><div class="row"><span class="title">Feedback</span><span class="when">In progress</span></div>
+        <p class="desc">Ideas, votes and bugs for all my products, in one quiet place.</p></a></li>
+      <li><a href="#"><div class="row"><span class="title">Turf</span><span class="when">2026</span></div>
+        <p class="desc">Can a model find an edge in horse racing? So far, no. Notes on why.</p></a></li>
+      <li><a href="https://github.com/msfonrouge/booky"><div class="row"><span class="title">Booky</span><span class="when">Earlier</span></div>
+        <p class="desc">Book management for a public library.</p></a></li>
+      <li><a href="https://github.com/msfonrouge/streamseeker"><div class="row"><span class="title">StreamSeeker</span><span class="when">Earlier</span></div>
+        <p class="desc">A guide and search engine for streaming.</p></a></li>
+    </ul>
+  </section>
+
+  <section id="writing">
+    <h2>Writing</h2>
+    <ul class="list">
+      <li><a href="#"><div class="row"><span class="title">I rewrote a Rust app in Go overnight</span><span class="when">Nov 2026</span></div></a></li>
+      <li><a href="#"><div class="row"><span class="title">Arbitrage in Argentina, and why I stopped</span><span class="when">Nov 2026</span></div></a></li>
+      <li><a href="#"><div class="row"><span class="title">What delivery apps really charge a restaurant</span><span class="when">Oct 2026</span></div></a></li>
+    </ul>
+  </section>
+
+  <section id="elsewhere">
+    <h2>Elsewhere</h2>
+    <div class="elsewhere">
+      <a href="https://github.com/msfonrouge">GitHub</a>
+      <a href="https://www.linkedin.com/in/maximo-segundo-fonrouge/">LinkedIn</a>
+      <a href="#">X</a>
+      <a href="#">Email</a>
+    </div>
+    <p style="margin-top:22px;color:var(--muted);font-size:17px">If you run a small business and something in it eats your hours, I'm happy to hear about it.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="col">Maximo Segundo Fonrouge · Buenos Aires</div>
+</footer>
+
+</body>
+</html>
