@@ -59,7 +59,8 @@ h2 { font: 500 12px var(--sans); letter-spacing: .16em; text-transform: uppercas
 .row .when { font: 14px var(--sans); color: var(--faint); white-space: nowrap; }
 .list .desc { color: var(--muted); font-size: 17px; margin-top: 2px; }
 .list .reads { font: 14px/1.5 var(--sans); color: var(--faint); margin-top: 8px; }
-.list .desc a, .list .reads a { color: var(--soft); }
+.list .desc a, .list .reads a, .list .reads .site { color: var(--soft); }
+.list .reads .site { text-decoration: underline; text-decoration-color: var(--faint); text-underline-offset: 3px; }
 .list a:hover .title { color: #fff; text-decoration: underline; text-decoration-color: var(--ember); }
 
 .elsewhere { display: flex; flex-wrap: wrap; gap: 8px 28px; }
@@ -119,11 +120,12 @@ nav a { padding: 12px 8px; margin: -12px -8px; }
   <section id="projects">
     <h2>Projects</h2>
     <ul class="list">
-      <li><a href="https://tallyfork.com"><div class="row"><span class="title">Tallyfork</span><span class="when">2026</span></div>
-        <p class="desc">Recipe costing for restaurants and caterers: ingredients, recipes, menus and the real cost of a dish.</p></a></li>
       <li><div><div class="row"><span class="title">Odoo ERP implementation</span><span class="when">2024 – now</span></div>
         <p class="desc">Set up Odoo, an open-source alternative to SAP, for a growing business and extended it: invoices, stock, costs and proposals, with automations and a custom system on top.</p>
         <p class="reads">Stories: <a href="writing/missing-invoices/">invoices</a> · <a href="writing/the-potato/">costs</a> · <a href="writing/stock-in-transit/">stock</a> · <a href="writing/one-click-proposals/">proposals</a></p></div></li>
+      <li><a href="https://tallyfork.com"><div class="row"><span class="title">Tallyfork</span><span class="when">2026</span></div>
+        <p class="desc">Recipe costing for restaurants and caterers: ingredients, recipes, menus and the real cost of a dish.</p>
+        <p class="reads"><span class="site">tallyfork.com ↗</span></p></a></li>
       <li><div><div class="row"><span class="title">Llave</span><span class="when">In progress</span></div>
         <p class="desc">Software for small real estate agencies: listings, every inquiry in one inbox, visits, and a website for each agency.</p></div></li>
       <li><div><div class="row"><span class="title">Alzaprima</span><span class="when">In progress</span></div>
