@@ -623,7 +623,7 @@ function drawBack(ctx, t, ox, oy) {
   // the swash. Each stretch of shore runs on its own clock: waves arrive at an angle, sections break at
   // different moments, and every wave reaches a different height. At the end of a cycle the water is back
   // at the shoreline, so changing the size per wave never makes a jump.
-  const T = 9, up = .38;
+  const T = 11.5, up = .22;
   const hash = n => { const v = Math.sin(n * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
   // Each stretch of beach (about a third of the width) runs on its own clock and moves straight up and
   // back. Neighbouring stretches are blended, never shifted, so nothing slides sideways along the shore.
