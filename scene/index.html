@@ -620,41 +620,57 @@ function drawBack(ctx, t, ox, oy) {
     ctx.fillRect(x - d.len / 2, d.y + wy, d.len, d.th);
   }
   ctx.globalCompositeOperation = 'source-over';
-  // the swash: a wave rises, runs up the sand with a foam edge, pulls back and leaves wet sand that fades
-  const T = 9, ph = (t / T) % 1, up = .38;
-  const e = ph < up ? 1 - Math.pow(1 - ph / up, 3) : .5 + .5 * Math.cos(Math.PI * (ph - up) / (1 - up));
+  // the swash. Each stretch of shore runs on its own clock: waves arrive at an angle, sections break at
+  // different moments, and every wave reaches a different height. At the end of a cycle the water is back
+  // at the shoreline, so changing the size per wave never makes a jump.
+  const T = 9, up = .38;
+  const hash = n => { const v = Math.sin(n * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
+  const at = x => {
+    const off = x / W * 3.4 + 1.4 * Math.sin(x * .0036 + .5) + .5 * Math.sin(x * .0075 + 2.1);
+    const tt = (t + off) / (T * (1 + .08 * Math.sin(x * .0021 + 1))), cyc = Math.floor(tt), ph = tt - cyc;
+    const bx = x / (W * .45), bi = Math.floor(bx), bf = bx - bi, sm = bf * bf * (3 - 2 * bf);
+    const big = .55 + .45 * (hash(cyc + bi * 17) * (1 - sm) + hash(cyc + (bi + 1) * 17) * sm);
+    const e = (ph < up ? 1 - Math.pow(1 - ph / up, 3) : .5 + .5 * Math.cos(Math.PI * (ph - up) / (1 - up))) * big;
+    const back = ph < up ? 0 : (ph - up) / (1 - up);
+    return { ph, e, big, back, fa: ph < up ? .6 : .6 * Math.pow(1 - back, 1.3) };
+  };
   const reachX = x => Math.max(0, (L.edge(x) - shore) * .55) * (.8 + .2 * Math.sin(x * .009 + 2) + .08 * Math.sin(x * .031));
   const edgeY = (x, k) => shore + wy + k * reachX(x) + .8 * s * Math.sin(x * .05 + t * .8);
-  const xs = []; for (let x = -10; x <= W + 10; x += 6) xs.push(x);
-  // wet sand left by the last run-up, drying out
-  if (ph >= up) {
-    const dry = (ph - up) / (1 - up);
-    ctx.beginPath(); xs.forEach((x, i) => i ? ctx.lineTo(x + wx, edgeY(x, 1)) : ctx.moveTo(x + wx, edgeY(x, 1)));
-    for (let i = xs.length - 1; i >= 0; i--) ctx.lineTo(xs[i] + wx, edgeY(xs[i], e));
-    ctx.closePath(); ctx.fillStyle = `rgba(14,18,34,${(.28 * (1 - dry)).toFixed(3)})`; ctx.fill();
+  const xs = [], st = [];
+  for (let x = -12; x <= W + 12; x += 6) { xs.push(x); st.push(at(x)); }
+  // wet sand left by each run-up, drying out
+  for (let i = 0; i < xs.length - 1; i++) {
+    const a = st[i], b = st[i + 1]; if (!a.back && !b.back) continue;
+    const al = .28 * (1 - (a.back + b.back) / 2); if (al < .01) continue;
+    const x0 = xs[i], x1 = xs[i + 1];
+    ctx.beginPath(); ctx.moveTo(x0 + wx, edgeY(x0, a.big)); ctx.lineTo(x1 + wx, edgeY(x1, b.big)); ctx.lineTo(x1 + wx, edgeY(x1, b.e)); ctx.lineTo(x0 + wx, edgeY(x0, a.e)); ctx.closePath();
+    ctx.fillStyle = `rgba(14,18,34,${al.toFixed(3)})`; ctx.fill();
   }
   // the sheet of water on the sand
-  ctx.beginPath(); ctx.moveTo(-10 + wx, shore + wy - 2 * s);
-  xs.forEach(x => ctx.lineTo(x + wx, edgeY(x, e)));
-  ctx.lineTo(W + 10 + wx, shore + wy - 2 * s); ctx.closePath();
-  ctx.fillStyle = lin(ctx, 0, shore + wy, 0, shore + wy + reachX(mx) * e + 2 * s, [[0, 'rgba(30,40,70,.55)'], [1, 'rgba(90,104,150,.35)']]); ctx.fill();
-  // foam edge: soft broken dabs, bright while running up, thinning and breaking apart as it pulls back
-  const fa = ph < up ? .6 : .6 * Math.pow(1 - (ph - up) / (1 - up), 1.3), spread = ph < up ? 0 : (ph - up) / (1 - up);
-  if (fa > .01) {
-    ctx.beginPath(); xs.forEach((x, i) => i ? ctx.lineTo(x + wx, edgeY(x, e) - 2 * s) : ctx.moveTo(x + wx, edgeY(x, e) - 2 * s));
-    ctx.strokeStyle = `rgba(150,165,205,${(fa * .14).toFixed(3)})`; ctx.lineWidth = 6 * s; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(xs[0] + wx, shore + wy - 2 * s);
+  xs.forEach((x, i) => ctx.lineTo(x + wx, edgeY(x, st[i].e)));
+  ctx.lineTo(xs[xs.length - 1] + wx, shore + wy - 2 * s); ctx.closePath();
+  ctx.fillStyle = lin(ctx, 0, shore + wy, 0, shore + wy + reachX(mx) * .7 + 2 * s, [[0, 'rgba(30,40,70,.55)'], [1, 'rgba(90,104,150,.35)']]); ctx.fill();
+  // soft glow behind the foam, segment by segment so each stretch fades on its own
+  ctx.lineWidth = 6 * s; ctx.lineCap = 'round';
+  for (let i = 0; i < xs.length - 1; i++) {
+    const al = (st[i].fa + st[i + 1].fa) / 2 * .14; if (al < .01) continue;
+    ctx.beginPath(); ctx.moveTo(xs[i] + wx, edgeY(xs[i], st[i].e) - 2 * s); ctx.lineTo(xs[i + 1] + wx, edgeY(xs[i + 1], st[i + 1].e) - 2 * s);
+    ctx.strokeStyle = `rgba(150,165,205,${al.toFixed(3)})`; ctx.stroke();
   }
-  if (fa > .01) for (const f of foam) {
-    const y = edgeY(f.x, e) + f.dy, x = f.x + wx, a = fa * f.n;
-    if (spread > f.n) continue;
+  // foam: soft broken dabs, bright while running up, thinning and breaking apart as it pulls back
+  for (const f of foam) {
+    const q = at(f.x), a = q.fa * f.n; if (a < .01 || q.back > f.n) continue;
     ctx.fillStyle = `rgba(222,228,242,${a.toFixed(3)})`;
-    ctx.beginPath(); ctx.ellipse(x, y, f.rx * (1 - spread * .5), f.ry, 0, 0, TAU); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(f.x + wx, edgeY(f.x, q.e) + f.dy, f.rx * (1 - q.back * .5), f.ry, 0, 0, TAU); ctx.fill();
   }
-  // the next wave building just off the shore
-  if (ph > .62) {
-    const k = (ph - .62) / .38, yy = shore + wy - (1 - k) * 18 * s - 1.5 * s;
-    ctx.beginPath(); xs.forEach((x, i) => { const y = yy + 1.4 * s * Math.sin(x * .012 + 1) + s * Math.sin(x * .043); i ? ctx.lineTo(x + wx, y) : ctx.moveTo(x + wx, y); });
-    ctx.strokeStyle = `rgba(190,202,232,${(Math.sin(Math.PI * k) * .4).toFixed(3)})`; ctx.lineWidth = (1 + k) * s; ctx.stroke();
+  // the next wave building just off the shore, where that stretch is about to break
+  for (let i = 0; i < xs.length - 1; i++) {
+    const q = st[i]; if (q.ph < .62) continue;
+    const k = (q.ph - .62) / .38, al = Math.sin(Math.PI * k) * .4; if (al < .01) continue;
+    const y = x => shore + wy - (1 - k) * 18 * s - 1.5 * s + 1.4 * s * Math.sin(x * .012 + 1) + s * Math.sin(x * .043);
+    ctx.beginPath(); ctx.moveTo(xs[i] + wx, y(xs[i])); ctx.lineTo(xs[i + 1] + wx, y(xs[i + 1]));
+    ctx.strokeStyle = `rgba(190,202,232,${al.toFixed(3)})`; ctx.lineWidth = (1 + k) * s; ctx.stroke();
   }
 }
 function drawGrass(ctx, t, ox, oy) {
