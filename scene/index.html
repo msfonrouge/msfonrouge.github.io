@@ -83,6 +83,7 @@ const cGlow = makeCanvas('', false);    // fire, light, sparks (dynamic; no CSS 
 const F = document.createElement('canvas'), S1 = document.createElement('canvas'), S2 = document.createElement('canvas');
 const fctx = F.getContext('2d'), s1ctx = S1.getContext('2d'), s2ctx = S2.getContext('2d');
 let embers = [];
+let swells = [];
 let L, ctxBack, ctxGrass, ctxGlow, stars = [], dashes = [], clumps = [], sparks = [], starSprite;
 
 function layout(W, H) {
@@ -455,13 +456,13 @@ function bodyPath(ctx) {
 }
 function guitar(ctx, x, y, k, ang) {
   // shadow
-  for (let i = 0; i < 6; i++) { const t = i / 5, d = (-10 + t * 210) * k; blob(ctx, x + Math.cos(ang) * d + 6 * k, y + Math.sin(ang) * d * .62 + 10 * k, (i < 2 ? 52 : 26) * k, (i < 2 ? 18 : 8) * k, [6, 5, 10], .5); }
+  for (let i = 0; i < 6; i++) { const t = i / 5, d = (-10 + t * 210) * k; blob(ctx, x + Math.cos(ang) * d + 7 * k, y + Math.sin(ang) * d * .62 + 14 * k, (i < 2 ? 52 : 26) * k, (i < 2 ? 18 : 8) * k, [6, 5, 10], .5); }
   const frame = (dy) => { ctx.translate(x, y + dy); ctx.scale(k, k * .6); ctx.rotate(ang); };
   // rim (sides)
-  ctx.save(); frame(7 * k); bodyPath(ctx); ctx.fillStyle = '#4a2a17'; ctx.fill(); ctx.restore();
+  for (let d = 12; d >= 1; d -= 1.5) { ctx.save(); frame(d * k); bodyPath(ctx); ctx.fillStyle = d > 8 ? '#3a2012' : '#4a2a17'; ctx.fill(); ctx.restore(); }
   ctx.save(); frame(0);
   // neck side + fingerboard
-  ctx.fillStyle = '#3b2416'; ctx.beginPath(); ctx.moveTo(78, -7); ctx.lineTo(206, -5.5); ctx.lineTo(206, 7.5); ctx.lineTo(78, 9); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = '#3b2416'; ctx.beginPath(); ctx.moveTo(78, -7); ctx.lineTo(206, -5.5); ctx.lineTo(206, 10); ctx.lineTo(78, 12); ctx.closePath(); ctx.fill();
   ctx.fillStyle = '#21140e'; ctx.beginPath(); ctx.moveTo(78, -7); ctx.lineTo(206, -5.5); ctx.lineTo(206, 5.5); ctx.lineTo(78, 7); ctx.closePath(); ctx.fill();
   ctx.strokeStyle = 'rgba(200,190,170,.45)'; ctx.lineWidth = .9;
   for (let i = 0, fxp = 206; i < 14; i++) { fxp -= 11 * Math.pow(.95, i); ctx.beginPath(); ctx.moveTo(fxp, -6); ctx.lineTo(fxp, 6); ctx.stroke(); }
@@ -552,6 +553,9 @@ function buildDynamic() {
     const t = Math.pow(rnd(), .75), y = hz + 2 + (shore - hz - 5) * t, spread = (6 + 75 * t) * sc;
     dashes.push({ y, dx: gauss() * spread * .55, spread, len: R(3, 16) * (.4 + t) * s, th: (.6 + 1.2 * t) * s, w: R(.6, 2), p: R(0, TAU) });
   }
+  // swell crests: each one drifts from the horizon to the shore and fades at both ends
+  swells = [];
+  for (let i = 0; i < (P ? 26 : 46); i++) swells.push({ t0: rnd(), x: R(-.1, 1.1) * W, len: R(.12, .34) * W, sp: R(.010, .016), bend: R(1, 3) });
   // grass clumps
   clumps = [];
   const addClump = (x, y, h, depth, nb, dark) => {
@@ -590,6 +594,20 @@ function drawBack(ctx, t, ox, oy) {
   }
   ctx.globalAlpha = 1;
   const wx = ox * .3, wy = oy * .3;
+  // swells: long thin tapered crests (moonlit) over a dark trough, larger and slower near the shore
+  for (const w of swells) {
+    const u = (w.t0 + t * w.sp) % 1, d = Math.pow(u, 1.6), y = hz + 3 * s + (shore - hz - 6 * s) * d + wy;
+    const a = Math.sin(Math.PI * u), half = w.len * (.35 + .65 * d) / 2, x = w.x + wx + Math.sin(t * .2 + w.t0 * 9) * 6 * s;
+    const b = w.bend * .5 * (.3 + d) * s, th = (.35 + .9 * d) * s, moon = Math.exp(-Math.abs(x - L.mx) / (W * .18));
+    const lens = (dy, k) => { ctx.beginPath(); ctx.moveTo(x - half, y + dy); ctx.quadraticCurveTo(x, y + dy - b - th * k, x + half, y + dy); ctx.quadraticCurveTo(x, y + dy - b + th * k, x - half, y + dy); ctx.fill(); };
+    ctx.fillStyle = `rgba(6,10,24,${(a * .45).toFixed(3)})`; lens(th * 1.8, 1.4);
+    ctx.fillStyle = `rgba(150,168,214,${(a * (.16 + .22 * moon) * (.6 + .6 * d)).toFixed(3)})`; lens(0, 1);
+  }
+  // a line of foam that rolls in and fades as the wash reaches the sand
+  { const ph = (t * .45 / TAU + .25) % 1, yy = shore - (1 - ph) * 16 * s + wy, fa = Math.sin(Math.PI * ph) * .32;
+    ctx.beginPath();
+    for (let x = -10; x <= W + 10; x += 8) { const y = yy + 1.6 * s * Math.sin(x * .013 + t * .25) + 1.2 * s * Math.sin(x * .041 + 1); x === -10 ? ctx.moveTo(x + wx, y) : ctx.lineTo(x + wx, y); }
+    ctx.strokeStyle = `rgba(200,210,235,${fa.toFixed(3)})`; ctx.lineWidth = 1.1 * s; ctx.stroke(); }
   ctx.globalCompositeOperation = 'lighter';
   for (const d of dashes) {
     const v = Math.sin(t * d.w + d.p + d.y * .05), a = v > 0 ? v * v : 0;
