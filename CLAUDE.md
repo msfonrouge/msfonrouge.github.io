@@ -2,7 +2,7 @@
 
 Personal site of Maximo Segundo Fonrouge. GitHub Pages publishes the `main` branch as is. There is no build step.
 
-- The site lives at the root. Its live address is https://msfonrouge.github.io/.
+- The site lives at the root. Its live address is https://msfonrouge.com/ (custom domain since 2026-11-24, file `CNAME`; DNS in Cloudflare, records "DNS only"). msfonrouge.github.io redirects there.
 - `new/index.html` only redirects to the home. The `/new/` link was shared before the move, so keep it.
 - `scene/index.html` is the scene at the top of the home: a painted beach fogón in Canvas2D, shown in an `<iframe>`. Its source is `lab/style-painted/` (not published).
 - `writing/<slug>/index.html` holds one article each, in prose with a date. The home has Projects, Writing and Elsewhere.
