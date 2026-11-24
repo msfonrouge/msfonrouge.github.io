@@ -165,7 +165,7 @@ nav a { padding: 12px 8px; margin: -12px -8px; }
   <section id="elsewhere">
     <h2>Elsewhere</h2>
     <div class="elsewhere">
-      <a href="mailto:msfonrouge@gmail.com">Email</a>
+      <a href="#elsewhere" class="mail" data-u="hello" data-d="msfonrouge.com">Email</a>
       <a href="https://github.com/msfonrouge">GitHub</a>
       <a href="https://www.linkedin.com/in/maximo-segundo-fonrouge/">LinkedIn</a>
     </div>
@@ -177,5 +177,12 @@ nav a { padding: 12px 8px; margin: -12px -8px; }
   <div class="col">Maximo Segundo Fonrouge · Buenos Aires</div>
 </footer>
 
+<script>
+// The address is put together only on click, so bots that read the page never see it.
+document.querySelectorAll('a.mail').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault();
+  location.href = 'mailto:' + a.dataset.u + '@' + a.dataset.d;
+}));
+</script>
 </body>
 </html>
