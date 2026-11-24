@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maximo Segundo Fonrouge</title>
-<meta name="description" content="Maximo Segundo Fonrouge builds small software in Buenos Aires.">
+<meta name="description" content="Maximo Segundo Fonrouge builds software that takes repetitive work off people's hands. Selected projects, with real results.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -12,8 +13,9 @@
 :root {
   --night: #0e0f13;
   --text: #e9e3d8;
-  --muted: #9a9286;
-  --faint: #5f5950;
+  --soft: #cfc8bc;
+  --muted: #a39b8f;
+  --faint: #6c665c;
   --line: #24252c;
   --ember: #f0a868;
   --serif: "Newsreader", Georgia, serif;
@@ -26,133 +28,244 @@ body {
   color: var(--text);
   font: 20px/1.6 var(--serif);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 a { color: inherit; text-decoration-color: var(--faint); text-underline-offset: 3px; text-decoration-thickness: 1px; }
 a:hover { text-decoration-color: var(--ember); color: #fff; }
-.col { max-width: 640px; margin: 0 auto; padding: 0 24px; }
+.col { max-width: 680px; margin: 0 auto; padding: 0 24px; }
 
-/* Header */
-header { position: absolute; top: 0; left: 0; right: 0; z-index: 2; padding: 28px 0; }
-header .col { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
-.name { font-size: 18px; text-decoration: none; }
-nav { display: flex; gap: 22px; font: 14px var(--sans); color: #c9c2b6; }
-nav a { text-decoration: none; }
+/* Header, over the scene */
+header { position: absolute; top: 0; left: 0; right: 0; z-index: 2; padding: 26px 0; pointer-events: none; }
+header .wide { max-width: 1200px; margin: 0 auto; padding: 0 28px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+header a { pointer-events: auto; text-decoration: none; }
+.name { font-size: 17px; color: rgba(233,227,216,.85); }
+nav { display: flex; gap: 22px; font: 14px var(--sans); color: rgba(233,227,216,.75); }
 
 /* The scene */
-.scene { position: relative; }
-.scene img {
-  display: block; width: 100%; height: min(78vh, 56.25vw); min-height: 340px;
-  object-fit: cover; object-position: 38% 50%;
-}
+.scene { position: relative; height: 70vh; height: 70svh; min-height: 380px; background: #0a0e1b; }
+.scene iframe { display: block; width: 100%; height: 100%; border: 0; }
 .scene::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 30%;
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 28%;
   background: linear-gradient(to bottom, transparent, var(--night));
   pointer-events: none;
 }
 
-/* Text */
-.intro { padding: 8px 0 24px; }
-h1 { font-weight: 400; font-size: 40px; line-height: 1.2; margin-bottom: 22px; }
+/* Intro */
+.intro { padding: 12px 0 8px; }
+h1 { font-weight: 400; font-size: 42px; line-height: 1.15; margin-bottom: 22px; letter-spacing: -.005em; }
+.intro p { color: var(--soft); }
 p + p { margin-top: 16px; }
-.intro p { color: #cfc8bc; }
 
-section { padding: 48px 0 8px; }
+section { padding: 64px 0 8px; }
 h2 {
   font: 500 12px var(--sans); letter-spacing: .16em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 22px;
+  color: var(--muted); margin-bottom: 8px;
 }
+.lede { color: var(--muted); font-size: 18px; margin-bottom: 8px; }
 
-.list { list-style: none; }
-.list li { padding: 14px 0; border-top: 1px solid var(--line); }
-.list li:last-child { border-bottom: 1px solid var(--line); }
-.row { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
-.row .when { font: 14px var(--sans); color: var(--faint); white-space: nowrap; }
-.list .desc { color: var(--muted); font-size: 17px; margin-top: 2px; }
-.list a { text-decoration: none; }
-.list a:hover .title { color: #fff; text-decoration: underline; text-decoration-color: var(--ember); }
+/* Cases */
+.case { padding: 40px 0; border-top: 1px solid var(--line); }
+.case:last-child { border-bottom: 1px solid var(--line); }
+.area { font: 500 12px var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ember); }
+.case h3 { font-weight: 400; font-size: 30px; line-height: 1.2; margin: 6px 0 20px; }
+.stat {
+  display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  padding: 16px 18px; margin-bottom: 22px;
+  background: #15161c; border: 1px solid var(--line); border-radius: 10px;
+}
+.stat b { font: 500 30px/1 var(--serif); color: var(--text); white-space: nowrap; }
+.stat span { font: 15px/1.45 var(--sans); color: var(--muted); flex: 1 1 220px; }
+.case h4 { font: 500 13px var(--sans); letter-spacing: .04em; color: var(--muted); margin: 18px 0 4px; }
+.case p, .case li { color: var(--soft); font-size: 18px; }
+.case ul { padding-left: 20px; }
+.case li + li { margin-top: 4px; }
+.case li::marker { color: var(--faint); }
+.visit { display: inline-block; margin-top: 18px; font: 15px var(--sans); }
 
-.elsewhere { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+/* How I work */
+.how { list-style: none; }
+.how li { padding: 14px 0; border-top: 1px solid var(--line); color: var(--soft); font-size: 18px; }
+.how li:last-child { border-bottom: 1px solid var(--line); }
+.how b { font-weight: 500; color: var(--text); }
 
-footer { padding: 72px 0 56px; color: var(--faint); font: 14px var(--sans); }
+.elsewhere { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 14px; }
+footer { padding: 80px 0 56px; color: var(--faint); font: 14px var(--sans); }
 
 @media (max-width: 640px) {
   body { font-size: 18px; }
   .col { padding: 0 16px; }
-  header { padding: 20px 0; }
-  header .col { flex-direction: column; gap: 6px; }
+  header { padding: 18px 0; }
+  header .wide { padding: 0 16px; flex-direction: column; gap: 4px; }
   nav { gap: 18px; }
-  .scene img { height: 62vh; min-height: 0; object-position: 34% 50%; }
+  .scene { height: 60vh; height: 60svh; min-height: 340px; }
   h1 { font-size: 32px; }
-  .row { flex-direction: column; gap: 0; }
+  .case h3 { font-size: 26px; }
+  .case p, .case li { font-size: 17px; }
+  .stat b { font-size: 26px; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="col">
-    <a class="name" href="#">Maximo Segundo Fonrouge</a>
+  <div class="wide">
+    <a class="name" href="#top">Maximo Segundo Fonrouge</a>
     <nav>
-      <a href="#projects">Projects</a>
-      <a href="#writing">Writing</a>
-      <a href="#elsewhere">Elsewhere</a>
+      <a href="#work">Work</a>
+      <a href="#how">How I work</a>
+      <a href="#contact">Contact</a>
     </nav>
   </div>
 </header>
 
-<!-- The beach at night, rendered in Blender from scene/build.py. -->
-<div class="scene">
-  <picture>
-    <source media="(max-width: 700px)" srcset="img/beach-night-small.jpg">
-    <img src="img/beach-night.jpg" width="1920" height="1080"
-         alt="A fogón burning on a beach at night, with the moon over the sea and a small lit skyline on the far shore.">
-  </picture>
+<div class="scene" id="top">
+  <iframe src="scene/" title="A painted campfire on a beach at night" allow="accelerometer; gyroscope" loading="eager"></iframe>
 </div>
 
 <main class="col">
 
-  <div class="intro" id="about">
-    <h1>Hi, I'm Maximo Segundo Fonrouge.</h1>
-    <p>I build small pieces of software in Buenos Aires. Most of them start as a real problem in a real business: a kitchen that runs out of stock, a quote that takes a day to send, an invoice nobody loaded.</p>
-    <p>Lately I build almost everything with AI, often from my phone. I write here about what works, what breaks, and what I'd do differently. Away from the screen, I'm learning guitar for a fogón in February.</p>
+  <div class="intro">
+    <h1>I build software that takes repetitive work off people's hands.</h1>
+    <p>Invoices nobody had time to load. Stock that left one place and never arrived at the next. Quotes typed by hand, one at a time. Messages from customers that waited days for an answer.</p>
+    <p>I sit with the people who do the work, find where the hours really go, and fix that first. Below are some things I built, with the results they had.</p>
   </div>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <ul class="list">
-      <li><a href="#"><div class="row"><span class="title">Tallyfork</span><span class="when">2026</span></div>
-        <p class="desc">Software for catering companies: menus, quotes, events and kitchen prep.</p></a></li>
-      <li><a href="#"><div class="row"><span class="title">Alzaprima</span><span class="when">In progress</span></div>
-        <p class="desc">An assistant that answers WhatsApp inquiries and sends a real quote in a minute.</p></a></li>
-      <li><a href="#"><div class="row"><span class="title">Feedback</span><span class="when">In progress</span></div>
-        <p class="desc">Ideas, votes and bugs for all my products, in one quiet place.</p></a></li>
-      <li><a href="#"><div class="row"><span class="title">Turf</span><span class="when">2026</span></div>
-        <p class="desc">Can a model find an edge in horse racing? So far, no. Notes on why.</p></a></li>
-      <li><a href="https://github.com/msfonrouge/booky"><div class="row"><span class="title">Booky</span><span class="when">Earlier</span></div>
-        <p class="desc">Book management for a public library.</p></a></li>
-      <li><a href="https://github.com/msfonrouge/streamseeker"><div class="row"><span class="title">StreamSeeker</span><span class="when">Earlier</span></div>
-        <p class="desc">A guide and search engine for streaming.</p></a></li>
+  <section id="work">
+    <h2>Selected work</h2>
+    <p class="lede">Most of these come from the food and events business: kitchens, stores, and a team that sells events.</p>
+
+    <article class="case">
+      <div class="area">Purchasing</div>
+      <h3>Every invoice on the books</h3>
+      <div class="stat"><b>50% → 100%</b><span>of a month's supplier invoices in the accounting system, matching the tax authority's total exactly.</span></div>
+      <h4>Problem</h4>
+      <p>The tax authority listed every invoice that suppliers had issued. The accounting system had only half of them, because invoices got in only when someone took a photo of the paper copy.</p>
+      <h4>What I built</h4>
+      <ul>
+        <li>A tool that reads the official list of invoices and compares it with the accounting system.</li>
+        <li>It loads each missing invoice, with the right taxes, for a person to review.</li>
+        <li>It finds invoices that were loaded twice, and fixes small rounding differences.</li>
+        <li>Every run can be undone with one command.</li>
+      </ul>
+      <h4>Result</h4>
+      <p>For the first month, the books went from 98 of 195 invoices to 195 of 195. The next two months, 174 more invoices came in the same way.</p>
+    </article>
+
+    <article class="case">
+      <div class="area">Costing</div>
+      <h3>Costs you can trust</h3>
+      <div class="stat"><b>81</b><span>ingredient costs repaired, after one product was costed at 16 times what the supplier charged.</span></div>
+      <h4>Problem</h4>
+      <p>Suppliers bill by the bag or by the box. The system read those lines as if they were per kilo. Potatoes came out at 16 times their real price, and that error was in 65 recipes. Nobody could trust the cost of a dish.</p>
+      <h4>What I built</h4>
+      <ul>
+        <li>A check that compares each recipe cost with what was actually paid that week.</li>
+        <li>A fix that converts bags and boxes to real units, without changing any invoice total or tax.</li>
+        <li>A test run first, and a way to undo every change.</li>
+      </ul>
+      <h4>Result</h4>
+      <p>366 invoice lines on 137 invoices corrected, and 81 ingredient costs repaired. Recipe costs became numbers people could use to set prices.</p>
+    </article>
+
+    <article class="case">
+      <div class="area">Stock</div>
+      <h3>Stock that arrives</h3>
+      <div class="stat"><b>48 / 48</b><span>overdue transfers between the warehouse and the stores closed, with a check before and after.</span></div>
+      <h4>Problem</h4>
+      <p>Goods left the central warehouse, but no store confirmed that they arrived. Thousands of units were stuck "in transit", and the stores showed negative stock.</p>
+      <h4>What I built</h4>
+      <ul>
+        <li>A tool that receives each transfer with the quantities signed when it left the warehouse.</li>
+        <li>A rule in the system that stops a store from receiving more than was sent.</li>
+        <li>Practice runs on a copy of the data, then the real change at night, with the stores closed.</li>
+      </ul>
+      <h4>Result</h4>
+      <p>All 48 overdue transfers closed in one night. The new rule keeps the problem from coming back.</p>
+    </article>
+
+    <article class="case">
+      <div class="area">Sales</div>
+      <h3>Proposals in one click</h3>
+      <div class="stat"><b>~35 a week</b><span>event proposals that no longer had to be sent by hand.</span></div>
+      <h4>Problem</h4>
+      <p>A proposal had a button that made the PDF files, and then stopped. Someone still had to find the client in WhatsApp, paste the text and attach every file. The phone number on file was wrong for more than a third of the contacts.</p>
+      <h4>What I built</h4>
+      <ul>
+        <li>One button that sends the text and all the PDFs to the client on WhatsApp, and notes it on the proposal.</li>
+        <li>It takes the phone number from the real conversation with the client, not from the old contact card.</li>
+        <li>Five safety stops: no phone, no files, already sent, number not on WhatsApp, or a message that failed. A client never gets half a proposal.</li>
+      </ul>
+      <h4>Result</h4>
+      <p>At the time, the team sent about 35 proposals a week. Each one became one click instead of a series of manual steps. Of 795 proposals the system wrote over three months, people needed to edit only 15.</p>
+    </article>
+
+    <article class="case">
+      <div class="area">Customer inquiries</div>
+      <h3>An answer while the client is still interested</h3>
+      <div class="stat"><b>Minutes</b><span>from a new event inquiry to a full proposal on the client's WhatsApp.</span></div>
+      <h4>Problem</h4>
+      <p>More than a hundred event inquiries came in each month, from the website and from Facebook. Each one waited for someone to read it, make a proposal and send it.</p>
+      <h4>What I built</h4>
+      <ul>
+        <li>A system that reads each new inquiry and prepares the right proposal.</li>
+        <li>AI reads only the client's free text, to see if it changes anything. Plain rules decide the proposal, so it never invents a price.</li>
+        <li>Anything unclear goes to a person. Replies from clients raise an alert. It stops at the first error.</li>
+      </ul>
+      <h4>Result</h4>
+      <p>In a test on 65 real inquiries, 22 could be answered automatically, 11 went to a person, and the rest were not real requests. It has been live since November 2026.</p>
+    </article>
+
+    <article class="case">
+      <div class="area">Operations</div>
+      <h3>Where the hours go</h3>
+      <div class="stat"><b>128</b><span>client requests that waited more than a day for an answer, found in three months of records.</span></div>
+      <h4>Problem</h4>
+      <p>A sales team felt overloaded, and everyone assumed the cause was writing quotes.</p>
+      <h4>What I built</h4>
+      <ul>
+        <li>A study of 61 working days, put together from messages, documents, the sales system, email and calendars.</li>
+        <li>A simple page that shows, day by day, where the time went.</li>
+      </ul>
+      <h4>Result</h4>
+      <p>Quotes took about 6 minutes each. They were not the problem. More than half of the working day left no trace in any system, and 128 real requests waited more than a day. That changed what to fix next.</p>
+    </article>
+
+    <article class="case">
+      <div class="area">Product</div>
+      <h3>Tallyfork</h3>
+      <div class="stat"><b>Live</b><span>recipe costing for restaurants and caterers, built and run by me.</span></div>
+      <h4>Problem</h4>
+      <p>Kitchens set prices without knowing what a dish really costs. The cost changes every time a supplier changes a price.</p>
+      <h4>What I built</h4>
+      <ul>
+        <li>Ingredients with suppliers, pack sizes, yield and price history.</li>
+        <li>Recipes inside recipes, scaling, cost per portion and food cost percentage.</li>
+        <li>Menus with a price per guest and a suggested price.</li>
+        <li>Import from a spreadsheet, and a clear reason when a recipe has no cost yet.</li>
+      </ul>
+      <h4>Result</h4>
+      <p>A working product, now open by invitation.</p>
+      <a class="visit" href="https://tallyfork.com">Visit tallyfork.com →</a>
+    </article>
+  </section>
+
+  <section id="how">
+    <h2>How I work</h2>
+    <ul class="how">
+      <li><b>Measure first.</b> I look at the real records before I build anything, so we fix the problem that costs the most.</li>
+      <li><b>Small and safe.</b> Every change gets a test run first, and a way to undo it.</li>
+      <li><b>People stay in charge.</b> The software does the repetitive part. Anything unclear goes to a person.</li>
+      <li><b>Plain language.</b> You hear what changed and what it means for you, not the technical details.</li>
     </ul>
   </section>
 
-  <section id="writing">
-    <h2>Writing</h2>
-    <ul class="list">
-      <li><a href="#"><div class="row"><span class="title">I rewrote a Rust app in Go overnight</span><span class="when">Nov 2026</span></div></a></li>
-      <li><a href="#"><div class="row"><span class="title">Arbitrage in Argentina, and why I stopped</span><span class="when">Nov 2026</span></div></a></li>
-      <li><a href="#"><div class="row"><span class="title">What delivery apps really charge a restaurant</span><span class="when">Oct 2026</span></div></a></li>
-    </ul>
-  </section>
-
-  <section id="elsewhere">
-    <h2>Elsewhere</h2>
+  <section id="contact">
+    <h2>Contact</h2>
+    <p class="lede">If something in your work eats your hours, I'm happy to hear about it.</p>
     <div class="elsewhere">
-      <a href="https://github.com/msfonrouge">GitHub</a>
       <a href="https://www.linkedin.com/in/maximo-segundo-fonrouge/">LinkedIn</a>
-      <a href="#">X</a>
-      <a href="#">Email</a>
+      <a href="https://github.com/msfonrouge">GitHub</a>
     </div>
-    <p style="margin-top:22px;color:var(--muted);font-size:17px">If you run a small business and something in it eats your hours, I'm happy to hear about it.</p>
   </section>
 
 </main>
