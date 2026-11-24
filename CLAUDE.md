@@ -5,7 +5,7 @@ Personal site of Maximo Segundo Fonrouge. GitHub Pages publishes the `main` bran
 - `new/` is the new site (work in progress). Its live address is https://msfonrouge.github.io/new/.
 - The root `index.html` is the old portfolio. Keep it until Segun says to switch.
 - `new/scene/index.html` is the scene at the top: a painted beach fogón in Canvas2D, shown in an `<iframe>`. Its source is `lab/style-painted/` (not published).
-- `new/work/<slug>/index.html` holds one article per project (Problem / What I built / Result). The home lists them with one line and the key number.
+- `new/writing/<slug>/index.html` holds one article each, in prose with a date. The home has Projects, Writing and Elsewhere, like the old layout.
 - `new/img/beach-night*.jpg` is the old Blender render (`scene/build.py`). The page does not use it now.
 
 ## Rules
@@ -13,7 +13,7 @@ Personal site of Maximo Segundo Fonrouge. GitHub Pages publishes the `main` bran
 - Write in English. Keep the tone calm and personal, like felixrieseberg.com. No sales language.
 - Each page is one HTML file with inline CSS. No frameworks.
 - Check every change at 390 px and 1440 px wide. There must be no sideways scroll.
-- The page shows projects only, with no CV. Every number must come from real records. Do not name the client business or say the work was for one client.
+- The site is a personal site, not a work portfolio. No CV. Every number must come from real records. Do not name the client business or say the work was for one client.
 - No health or hospital examples on the page.
 
 ## Rendering the old Blender scene

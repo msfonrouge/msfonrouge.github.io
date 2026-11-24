@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A control room for outbound sales · Maximo Segundo Fonrouge</title>
+<meta name="description" content="A sales consultancy needed its clients to see and approve their campaigns. I chose not to build another sending tool.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root { --night:#0e0f13; --text:#e9e3d8; --soft:#cfc8bc; --muted:#a39b8f; --faint:#6c665c; --line:#24252c; --ember:#f0a868;
+  --serif:"Newsreader", Georgia, serif; --sans:"Inter", system-ui, sans-serif; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:var(--night); color:var(--text); font:20px/1.65 var(--serif); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+a { color:inherit; text-decoration-color:var(--faint); text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-color:var(--ember); color:#fff; }
+.col { max-width:640px; margin:0 auto; padding:0 24px; }
+.top { padding:28px 0 0; }
+.top .col { display:flex; justify-content:space-between; align-items:baseline; gap:16px; }
+.top a { text-decoration:none; }
+.top .home { font-size:17px; }
+.top .back { font:14px var(--sans); color:var(--muted); }
+article { padding:72px 0 16px; }
+.date { font:14px var(--sans); color:var(--faint); }
+h1 { font-weight:400; font-size:40px; line-height:1.15; margin:8px 0 28px; }
+article p { color:var(--soft); }
+article p + p { margin-top:18px; }
+.next { border-top:1px solid var(--line); margin-top:48px; padding-top:24px; font:15px var(--sans); color:var(--muted);
+  display:flex; justify-content:space-between; gap:12px 20px; flex-wrap:wrap; }
+.next a { text-decoration:none; }
+.next a:hover { text-decoration:underline; text-decoration-color:var(--ember); }
+footer { padding:72px 0 56px; color:var(--faint); font:14px var(--sans); }
+@media (max-width:640px) { body { font-size:18px; } .col { padding:0 16px; } .top { padding-top:18px; } article { padding-top:48px; } h1 { font-size:31px; } }
+</style>
+</head>
+<body>
+<div class="top"><div class="col"><a class="home" href="../../">Maximo Segundo Fonrouge</a><a class="back" href="../../#writing">Writing</a></div></div>
+<main class="col">
+<article>
+<div class="date">Jun 2026</div>
+<h1>A control room for outbound sales</h1>
+<p>A small sales consultancy runs outbound campaigns for other companies. Their clients kept asking the same things: who are we writing to, what are we saying, and is it working?</p>
+<p>The obvious idea was to build a tool that sends the emails. I chose not to. Email providers already do sending well, and they are strict about it. The real gap was clarity, not another sending engine.</p>
+<p>So I built the first version of a portal for the consultancy's clients. Each client defines who their ideal customer is, sees every campaign, and approves the messages before they go out. The consultancy's staff get their own side, to prepare campaigns and keep each client's work separate.</p>
+<p>The lesson I keep from it: the most useful thing to build is often the layer that helps people decide, not the machine that does the work.</p>
+</article>
+<nav class="next"><a href="../../#writing">← All writing</a><a href="../the-first-message/">Next: A bot that sends the first message →</a></nav>
+</main>
+<footer><div class="col">Maximo Segundo Fonrouge · Buenos Aires</div></footer>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sending a proposal in one click · Maximo Segundo Fonrouge</title>
+<meta name="description" content="A button that made the PDFs and then stopped. What it took to make it send the whole proposal to the client, safely.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root { --night:#0e0f13; --text:#e9e3d8; --soft:#cfc8bc; --muted:#a39b8f; --faint:#6c665c; --line:#24252c; --ember:#f0a868;
+  --serif:"Newsreader", Georgia, serif; --sans:"Inter", system-ui, sans-serif; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:var(--night); color:var(--text); font:20px/1.65 var(--serif); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+a { color:inherit; text-decoration-color:var(--faint); text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-color:var(--ember); color:#fff; }
+.col { max-width:640px; margin:0 auto; padding:0 24px; }
+.top { padding:28px 0 0; }
+.top .col { display:flex; justify-content:space-between; align-items:baseline; gap:16px; }
+.top a { text-decoration:none; }
+.top .home { font-size:17px; }
+.top .back { font:14px var(--sans); color:var(--muted); }
+article { padding:72px 0 16px; }
+.date { font:14px var(--sans); color:var(--faint); }
+h1 { font-weight:400; font-size:40px; line-height:1.15; margin:8px 0 28px; }
+article p { color:var(--soft); }
+article p + p { margin-top:18px; }
+.next { border-top:1px solid var(--line); margin-top:48px; padding-top:24px; font:15px var(--sans); color:var(--muted);
+  display:flex; justify-content:space-between; gap:12px 20px; flex-wrap:wrap; }
+.next a { text-decoration:none; }
+.next a:hover { text-decoration:underline; text-decoration-color:var(--ember); }
+footer { padding:72px 0 56px; color:var(--faint); font:14px var(--sans); }
+@media (max-width:640px) { body { font-size:18px; } .col { padding:0 16px; } .top { padding-top:18px; } article { padding-top:48px; } h1 { font-size:31px; } }
+</style>
+</head>
+<body>
+<div class="top"><div class="col"><a class="home" href="../../">Maximo Segundo Fonrouge</a><a class="back" href="../../#writing">Writing</a></div></div>
+<main class="col">
+<article>
+<div class="date">Sep 2026</div>
+<h1>Sending a proposal in one click</h1>
+<p>An events team has a button that makes the PDF files for a proposal, and then stops. After that, someone opens WhatsApp, looks for the client, pastes the text and attaches each file by hand. They send about 35 proposals a week.</p>
+<p>I made the button finish the job. Now it sends the text and every PDF to the client on WhatsApp, and leaves a note on the proposal saying it was sent.</p>
+<p>The hard part was the phone number. The number on file was wrong for more than a third of the contacts. So the tool takes the number from the real conversation with the client, not from the old contact card.</p>
+<p>It also has five safety stops: no phone, no files, already sent, a number that is not on WhatsApp, or a message that failed. It downloads every file before it sends the first message, so a client never gets half a proposal.</p>
+</article>
+<nav class="next"><a href="../../#writing">← All writing</a><a href="../sales-control-room/">Next: A control room for outbound sales →</a></nav>
+</main>
+<footer><div class="col">Maximo Segundo Fonrouge · Buenos Aires</div></footer>
+</body>
+</html>
