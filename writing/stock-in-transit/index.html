@@ -3,8 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Half the invoices were missing · Maximo Segundo Fonrouge</title>
-<meta name="description" content="A company had only half of its supplier invoices in its books. Here is how they all got in, and how each step could be undone.">
+<title>Stock that left and never arrived · Maximo Segundo Fonrouge</title>
+<meta name="description" content="Thousands of units were stuck between a warehouse and the stores. Closing 48 transfers in one night, with the stores closed.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Maximo Segundo Fonrouge">
+<meta property="og:title" content="Stock that left and never arrived">
+<meta property="og:description" content="Thousands of units were stuck between a warehouse and the stores. Closing 48 transfers in one night, with the stores closed.">
+<meta property="og:url" content="https://msfonrouge.github.io/writing/stock-in-transit/">
+<meta property="og:image" content="https://msfonrouge.github.io/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A painted fogón on a beach at night, with a guitar on the sand">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,14 +50,13 @@ footer { padding:72px 0 56px; color:var(--faint); font:14px var(--sans); }
 <main class="col">
 <article>
 <div class="date">Sep 2026</div>
-<h1>Half the invoices were missing</h1>
-<p>The tax authority keeps a list of every invoice a supplier issues to a company. One month, that list showed 195 purchase invoices. The company's accounting system had 98 of them.</p>
-<p>Nobody was careless. Invoices got into the system only when someone took a photo of the paper copy. If the paper never reached the office, the invoice never reached the books.</p>
-<p>So I stopped depending on the paper. I built a small tool that downloads the official list and compares it, line by line, with the accounting system. For every invoice that is missing, it creates one with the right taxes, and leaves it for a person to review.</p>
-<p>Two details mattered more than the code. First, it finds invoices that were loaded twice, once from the photo and once from the list, and it fixes small rounding differences. Second, every run can be undone with one command. When you change someone's books, the way back is part of the job.</p>
-<p>That month went from 98 of 195 invoices to 195 of 195, and the total matched the tax authority exactly. Next month, I can simply run it again.</p>
+<h1>Stock that left and never arrived</h1>
+<p>Goods left a central warehouse every day. The stores received them, used them and sold them. But in the system, nobody confirmed the arrival. Thousands of units were stuck “in transit”, and the stores showed negative stock.</p>
+<p>The fix was not complicated, but it had to be careful. I built a tool that receives each pending transfer with the quantities signed when it left the warehouse. I tested it on a copy of the data first, more than once.</p>
+<p>Then I ran it for real at night, with the stores closed, and checked the numbers before and after. All 48 overdue transfers closed in one go.</p>
+<p>Closing the old ones was only half of it. I also added a rule that stops a store from receiving more than was sent, so the same mess cannot build up again.</p>
 </article>
-<nav class="next"><a href="../../#writing">← All writing</a><a href="../the-potato/">Next: The potato that cost sixteen times its price →</a></nav>
+<nav class="next"><a href="../../#writing">← All writing</a><a href="../one-click-proposals/">Next: Sending a proposal in one click →</a></nav>
 </main>
 <footer><div class="col">Maximo Segundo Fonrouge · Buenos Aires</div></footer>
 </body>

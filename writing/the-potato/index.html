@@ -3,8 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Campaign reports without copying numbers · Maximo Segundo Fonrouge</title>
-<meta name="description" content="A marketing team copied the results of every email campaign by hand. A small program now reads them and fills the spreadsheet.">
+<title>The potato that cost sixteen times its price · Maximo Segundo Fonrouge</title>
+<meta name="description" content="A unit mistake on supplier invoices made the costs of 65 recipes wrong. Finding it and fixing it without touching a single total.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Maximo Segundo Fonrouge">
+<meta property="og:title" content="The potato that cost sixteen times its price">
+<meta property="og:description" content="A unit mistake on supplier invoices made the costs of 65 recipes wrong. Finding it and fixing it without touching a single total.">
+<meta property="og:url" content="https://msfonrouge.github.io/writing/the-potato/">
+<meta property="og:image" content="https://msfonrouge.github.io/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A painted fogón on a beach at night, with a guitar on the sand">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,14 +49,14 @@ footer { padding:72px 0 56px; color:var(--faint); font:14px var(--sans); }
 <div class="top"><div class="col"><a class="home" href="../../">Maximo Segundo Fonrouge</a><a class="back" href="../../#writing">Writing</a></div></div>
 <main class="col">
 <article>
-<div class="date">Oct 2023</div>
-<h1>Campaign reports without copying numbers</h1>
-<p>A marketing team sent many email campaigns: some to customers, some to employees. Every report meant opening each campaign and copying the same numbers into a spreadsheet by hand.</p>
-<p>The numbers were always the same ones: how many people got the email, how many deliveries worked, how many opened it, how many clicked, and how many unsubscribed.</p>
-<p>I wrote a program that opens each campaign, reads those numbers, and writes them into a spreadsheet, one row per campaign. There is one version for customer campaigns and one for internal news.</p>
-<p>It is a small tool. But it turned an afternoon of copying into a file that is ready when you need it, and it never makes a typing mistake.</p>
+<div class="date">Sep 2026</div>
+<h1>The potato that cost sixteen times its price</h1>
+<p>Potatoes were costing a kitchen sixteen times what the supplier charged. Not in real life: in the system. And because potatoes go into many dishes, the error was in 65 recipes. A portion of fries came out at more than fifteen times its real cost.</p>
+<p>The cause was simple. Suppliers bill by the bag or by the box. The system read those lines as if they were per kilo or per unit. One bag became one kilo, and the price per kilo went through the roof.</p>
+<p>I found it because some recipe costs looked absurd. Then I checked them against what was actually paid that same week. Once the pattern was clear, I wrote a fix that converts bags and boxes into real units without changing any invoice total or tax. It ran first as a test, and every change could be undone.</p>
+<p>In the end, 366 invoice lines on 137 invoices were corrected, and 81 ingredient costs were repaired. The real result is harder to count: recipe costs became numbers people could use to set prices again.</p>
 </article>
-<nav class="next"><a href="../../#writing">← All writing</a><a href="../speakers-landing/">Next: A landing page for an agency of speakers →</a></nav>
+<nav class="next"><a href="../../#writing">← All writing</a><a href="../stock-in-transit/">Next: Stock that left and never arrived →</a></nav>
 </main>
 <footer><div class="col">Maximo Segundo Fonrouge · Buenos Aires</div></footer>
 </body>

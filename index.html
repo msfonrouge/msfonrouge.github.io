@@ -1,70 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maximo Segundo Fonrouge</title>
+<meta name="description" content="Maximo Segundo Fonrouge builds software in Buenos Aires, and writes about what works and what breaks.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Maximo Segundo Fonrouge">
+<meta property="og:title" content="Maximo Segundo Fonrouge">
+<meta property="og:description" content="Maximo Segundo Fonrouge builds software in Buenos Aires, and writes about what works and what breaks.">
+<meta property="og:url" content="https://msfonrouge.github.io/">
+<meta property="og:image" content="https://msfonrouge.github.io/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A painted fogón on a beach at night, with a guitar on the sand">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --night: #0e0f13; --text: #e9e3d8; --soft: #cfc8bc; --muted: #a39b8f; --faint: #6c665c;
+  --line: #24252c; --ember: #f0a868;
+  --serif: "Newsreader", Georgia, serif; --sans: "Inter", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--night); color: var(--text); font: 20px/1.6 var(--serif); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; text-decoration-color: var(--faint); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-color: var(--ember); color: #fff; }
+.col { max-width: 640px; margin: 0 auto; padding: 0 24px; }
 
-    <title>Maximo Segundo Fonrouge</title>
+header { position: absolute; top: 0; left: 0; right: 0; z-index: 2; padding: 26px 0; pointer-events: none; }
+header .wide { max-width: 1200px; margin: 0 auto; padding: 0 28px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+header a { pointer-events: auto; text-decoration: none; }
+.name { font-size: 17px; color: rgba(233,227,216,.85); }
+nav { display: flex; gap: 22px; font: 14px var(--sans); color: rgba(233,227,216,.75); }
+
+.scene { position: relative; height: 60vh; height: 60svh; min-height: 360px; background: #0a0e1b; }
+.scene iframe { display: block; width: 100%; height: 100%; border: 0; }
+.scene::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 28%; background: linear-gradient(to bottom, transparent, var(--night)); pointer-events: none; }
+
+.intro { padding: 12px 0 8px; }
+h1 { font-weight: 400; font-size: 40px; line-height: 1.2; margin-bottom: 22px; }
+.intro p { color: var(--soft); }
+p + p { margin-top: 16px; }
+
+section { padding: 56px 0 8px; }
+h2 { font: 500 12px var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+
+.list { list-style: none; }
+.list li { border-top: 1px solid var(--line); }
+.list li:last-child { border-bottom: 1px solid var(--line); }
+.list li > a, .list li > div { display: block; padding: 16px 0; text-decoration: none; }
+.row { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
+.row .when { font: 14px var(--sans); color: var(--faint); white-space: nowrap; }
+.list .desc { color: var(--muted); font-size: 17px; margin-top: 2px; }
+.list .reads { font: 14px/1.5 var(--sans); color: var(--faint); margin-top: 8px; }
+.list .desc a, .list .reads a { color: var(--soft); }
+.list a:hover .title { color: #fff; text-decoration: underline; text-decoration-color: var(--ember); }
+
+.elsewhere { display: flex; flex-wrap: wrap; gap: 8px 28px; }
+footer { padding: 72px 0 56px; color: var(--faint); font: 14px var(--sans); }
+
+@media (max-width: 640px) {
+  body { font-size: 18px; }
+  .col { padding: 0 16px; }
+  header { padding: 18px 0; }
+  header .wide { padding: 0 16px; flex-direction: column; gap: 4px; }
+  nav { gap: 18px; }
+  /* Tall enough that the scene uses its portrait layout (width / height < .85), so the fire stays big and clear of the fade */
+  .scene { height: 66vh; height: 66svh; min-height: 480px; }
+  .scene::after { height: 14%; }
+  h1 { font-size: 29px; }
+  .row { flex-direction: column; gap: 0; }
+}
+
+/* Writing, grouped by year */
+.year-group { display: grid; grid-template-columns: 72px 1fr; gap: 0 16px; border-top: 1px solid var(--line); padding: 14px 0; }
+.year-group:last-child { border-bottom: 1px solid var(--line); }
+.year { font: 14px/2.1 var(--sans); color: var(--faint); }
+.posts { list-style: none; }
+.posts a { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 5px 0; text-decoration: none; }
+.posts .when { font: 14px var(--sans); color: var(--faint); white-space: nowrap; }
+.posts a:hover .title { color: #fff; text-decoration: underline; text-decoration-color: var(--ember); }
+@media (max-width: 640px) { .year-group { grid-template-columns: 1fr; } .year { line-height: 1.6; margin-bottom: 2px; } }
+.nowrap { white-space: nowrap; }
+nav a { padding: 12px 8px; margin: -12px -8px; }
+</style>
 </head>
-
 <body>
-    <section id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <img src="img/profile.jpeg" alt="Maximo Segundo Fonrouge" class="round-image">
-                <h1 class="hero-title">Maximo Segundo Fonrouge</h1>
-                <p class="hero-subtitle">{ FULL STACK DEVELOPER }</p>
-            </div>
-        </div>
-    </section>
 
-    <section id="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <p>Welcome to my portfolio website. I'm a dedicated full-stack developer with a passion for continuous
-                growth and a natural curiosity.</p>
-        </div>
-    </section>
+<header>
+  <div class="wide">
+    <a class="name" href="#top">Maximo Segundo Fonrouge</a>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#writing">Writing</a>
+      <a href="#elsewhere">Elsewhere</a>
+    </nav>
+  </div>
+</header>
 
-    <section id="projects">
-        <div class="container">
-            <h2>Projects</h2>
-            <div class="projects-container">
-                <div class="project">
-                    <h3>Booky</h3>
-                    <p>Public library book management system.</p>
-                    <a href="http://bookyapp-30144b1b624b.herokuapp.com">Visit Project</a>
-                    <a href="https://github.com/msfonrouge/booky">GitHub</a>
-                </div>
-                <div class="project">
-                    <h3>StreamSeeker</h3>
-                    <p>Online streaming guide and search engine.</p>
-                    <a href="https://streamseeker.herokuapp.com">Visit Project</a>
-                    <a href="https://github.com/msfonrouge/streamseeker">GitHub</a>
-                </div>
-                <div class="project">
-                    <h3>Nautilus</h3>
-                    <p>Boat marketplace.</p>
-                    <a href="https://github.com/msfonrouge/nautilus">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="scene" id="top">
+  <iframe src="scene/" title="A painted fogón on a beach at night" allow="accelerometer; gyroscope"></iframe>
+</div>
 
-    <section id="contact">
-        <div class="container">
-            <h2>Contact</h2>
-            <a href="https://www.linkedin.com/in/maximo-segundo-fonrouge/">LinkedIn</a>
-            <a href="https://github.com/msfonrouge">GitHub</a>
-        </div>
-    </section>
+<main class="col">
 
-    <footer>
-    </footer>
+  <div class="intro">
+    <h1>Hi, I'm<br><span class="nowrap">Maximo Segundo Fonrouge.</span></h1>
+    <p>I build software in Buenos Aires. Most of it starts with a real problem in a business: stock that never adds up, a quote that takes days to send, an invoice nobody loaded.</p>
+    <p>These days I'm tinkering a lot with AI. I write here about what works, what breaks, and what I'd do differently.</p>
+  </div>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <ul class="list">
+      <li><a href="https://tallyfork.com"><div class="row"><span class="title">Tallyfork</span><span class="when">2026</span></div>
+        <p class="desc">Recipe costing for restaurants and caterers: ingredients, recipes, menus and the real cost of a dish.</p></a></li>
+      <li><div><div class="row"><span class="title">Odoo ERP implementation</span><span class="when">2024 – now</span></div>
+        <p class="desc">Set up Odoo for a growing business and extended it: invoices, stock, costs and proposals, with automations and a custom system on top.</p>
+        <p class="reads">Stories: <a href="writing/missing-invoices/">invoices</a> · <a href="writing/the-potato/">costs</a> · <a href="writing/stock-in-transit/">stock</a> · <a href="writing/one-click-proposals/">proposals</a></p></div></li>
+      <li><div><div class="row"><span class="title">Llave</span><span class="when">In progress</span></div>
+        <p class="desc">Software for small real estate agencies: listings, every inquiry in one inbox, visits, and a website for each agency.</p></div></li>
+      <li><div><div class="row"><span class="title">Alzaprima</span><span class="when">In progress</span></div>
+        <p class="desc">An assistant that answers event inquiries on WhatsApp with a real proposal, in minutes.</p>
+        <p class="reads">Story: <a href="writing/answer-in-minutes/">An answer while the client still cares</a></p></div></li>
+      <li><div><div class="row"><span class="title">Earlier</span><span class="when">2023</span></div>
+        <p class="desc"><a href="https://github.com/msfonrouge/booky">Booky</a>, book management for a public library. <a href="https://github.com/msfonrouge/streamseeker">StreamSeeker</a>, a search engine for streaming. <a href="https://github.com/msfonrouge/nautilus">Nautilus</a>, a marketplace for boats.</p></div></li>
+    </ul>
+  </section>
+
+  <section id="writing">
+    <h2>Writing</h2>
+    <div class="year-group"><div class="year">2026</div>
+    <ul class="posts">
+      <li><a href="writing/answer-in-minutes/"><span class="title">An answer while the client still cares</span><span class="when">Nov</span></a></li>
+      <li><a href="writing/where-the-hours-go/"><span class="title">Where the hours really go</span><span class="when">Nov</span></a></li>
+      <li><a href="writing/missing-invoices/"><span class="title">Half the invoices were missing</span><span class="when">Sep</span></a></li>
+      <li><a href="writing/the-potato/"><span class="title">The potato that cost sixteen times its price</span><span class="when">Sep</span></a></li>
+      <li><a href="writing/stock-in-transit/"><span class="title">Stock that left and never arrived</span><span class="when">Sep</span></a></li>
+      <li><a href="writing/one-click-proposals/"><span class="title">Sending a proposal in one click</span><span class="when">Sep</span></a></li>
+      <li><a href="writing/sales-control-room/"><span class="title">A control room for outbound sales</span><span class="when">Jun</span></a></li>
+    </ul></div>
+    <div class="year-group"><div class="year">2025</div>
+    <ul class="posts">
+      <li><a href="writing/the-first-message/"><span class="title">A bot that sends the first message</span><span class="when">Apr</span></a></li>
+    </ul></div>
+    <div class="year-group"><div class="year">2024</div>
+    <ul class="posts">
+      <li><a href="writing/first-automations/"><span class="title">Small first steps in a catering business</span><span class="when">Oct</span></a></li>
+      <li><a href="writing/what-to-sell/"><span class="title">Finding what to sell, and at what price</span><span class="when">Feb</span></a></li>
+    </ul></div>
+    <div class="year-group"><div class="year">2023</div>
+    <ul class="posts">
+      <li><a href="writing/campaign-reports/"><span class="title">Campaign reports without copying numbers</span><span class="when">Oct</span></a></li>
+    </ul></div>
+    <div class="year-group"><div class="year">2021</div>
+    <ul class="posts">
+      <li><a href="writing/speakers-landing/"><span class="title">A landing page for an agency of speakers</span><span class="when">Jun</span></a></li>
+    </ul></div>
+    <div class="year-group"><div class="year">2020</div>
+    <ul class="posts">
+      <li><a href="writing/first-client-site/"><span class="title">A website, and the parts nobody sees</span><span class="when">Nov</span></a></li>
+    </ul></div>
+    <div class="year-group"><div class="year">2017</div>
+    <ul class="posts">
+      <li><a href="writing/selling-game-codes/"><span class="title">Selling game codes online</span><span class="when">Oct</span></a></li>
+    </ul></div>
+  </section>
+
+  <section id="elsewhere">
+    <h2>Elsewhere</h2>
+    <div class="elsewhere">
+      <a href="#elsewhere" class="mail" data-u="hello" data-d="msfonrouge.com">Email</a>
+      <a href="https://github.com/msfonrouge">GitHub</a>
+      <a href="https://www.linkedin.com/in/maximo-segundo-fonrouge/">LinkedIn</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="col">Maximo Segundo Fonrouge · Buenos Aires</div>
+</footer>
+
+<script>
+// The address is put together only on click, so bots that read the page never see it.
+document.querySelectorAll('a.mail').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault();
+  location.href = 'mailto:' + a.dataset.u + '@' + a.dataset.d;
+}));
+</script>
 </body>
-
 </html>

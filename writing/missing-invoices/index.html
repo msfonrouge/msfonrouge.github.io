@@ -3,8 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The potato that cost sixteen times its price · Maximo Segundo Fonrouge</title>
-<meta name="description" content="A unit mistake on supplier invoices made the costs of 65 recipes wrong. Finding it and fixing it without touching a single total.">
+<title>Half the invoices were missing · Maximo Segundo Fonrouge</title>
+<meta name="description" content="A company had only half of its supplier invoices in its books. Here is how they all got in, and how each step could be undone.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Maximo Segundo Fonrouge">
+<meta property="og:title" content="Half the invoices were missing">
+<meta property="og:description" content="A company had only half of its supplier invoices in its books. Here is how they all got in, and how each step could be undone.">
+<meta property="og:url" content="https://msfonrouge.github.io/writing/missing-invoices/">
+<meta property="og:image" content="https://msfonrouge.github.io/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A painted fogón on a beach at night, with a guitar on the sand">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,13 +50,14 @@ footer { padding:72px 0 56px; color:var(--faint); font:14px var(--sans); }
 <main class="col">
 <article>
 <div class="date">Sep 2026</div>
-<h1>The potato that cost sixteen times its price</h1>
-<p>Potatoes were costing a kitchen sixteen times what the supplier charged. Not in real life: in the system. And because potatoes go into many dishes, the error was in 65 recipes. A portion of fries came out at more than fifteen times its real cost.</p>
-<p>The cause was simple. Suppliers bill by the bag or by the box. The system read those lines as if they were per kilo or per unit. One bag became one kilo, and the price per kilo went through the roof.</p>
-<p>I found it because some recipe costs looked absurd. Then I checked them against what was actually paid that same week. Once the pattern was clear, I wrote a fix that converts bags and boxes into real units without changing any invoice total or tax. It ran first as a test, and every change could be undone.</p>
-<p>In the end, 366 invoice lines on 137 invoices were corrected, and 81 ingredient costs were repaired. The real result is harder to count: recipe costs became numbers people could use to set prices again.</p>
+<h1>Half the invoices were missing</h1>
+<p>The tax authority keeps a list of every invoice a supplier issues to a company. One month, that list showed 195 purchase invoices. The company's accounting system had 98 of them.</p>
+<p>Nobody was careless. Invoices got into the system only when someone took a photo of the paper copy. If the paper never reached the office, the invoice never reached the books.</p>
+<p>So I stopped depending on the paper. I built a small tool that downloads the official list and compares it, line by line, with the accounting system. For every invoice that is missing, it creates one with the right taxes, and leaves it for a person to review.</p>
+<p>Two details mattered more than the code. First, it finds invoices that were loaded twice, once from the photo and once from the list, and it fixes small rounding differences. Second, every run can be undone with one command. When you change someone's books, the way back is part of the job.</p>
+<p>That month went from 98 of 195 invoices to 195 of 195, and the total matched the tax authority exactly. Next month, I can simply run it again.</p>
 </article>
-<nav class="next"><a href="../../#writing">← All writing</a><a href="../stock-in-transit/">Next: Stock that left and never arrived →</a></nav>
+<nav class="next"><a href="../../#writing">← All writing</a><a href="../the-potato/">Next: The potato that cost sixteen times its price →</a></nav>
 </main>
 <footer><div class="col">Maximo Segundo Fonrouge · Buenos Aires</div></footer>
 </body>
