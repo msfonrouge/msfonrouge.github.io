@@ -835,7 +835,7 @@ function build() {
   if (reduce) { for (let i = 0; i < 30; i++) drawGlow(ctxGlow, 4 + i * .1, .1, 0, 0); frame(performance.now(), true); }
 }
 
-let px = 0, py = 0, tx = 0, ty = 0, last = 0;
+let px = 0, py = 0, tx = 0, ty = 0, last = 0, onScreen = true, running = false;
 function frame(now, once) {
   const dt = last ? Math.min(.05, (now - last) / 1000) : 0; last = now;
   if (!reduce) { T += dt; px += (tx - px) * Math.min(1, dt * 2.5); py += (ty - py) * Math.min(1, dt * 2.5); }
@@ -848,8 +848,10 @@ function frame(now, once) {
   drawBack(ctxBack, t, ox, oy);
   drawGrass(ctxGrass, t, ox, oy);
   drawGlow(ctxGlow, t, reduce ? 0 : dt, ox, oy);
-  if (!reduce && !once) requestAnimationFrame(frame);
+  if (!reduce && !once) { if (onScreen && !document.hidden) requestAnimationFrame(frame); else { running = false; last = 0; } }
 }
+// Pause the animation while the scene is scrolled out of view or the tab is hidden, to save battery on phones.
+function wake() { if (!reduce && !running && onScreen && !document.hidden) { running = true; requestAnimationFrame(frame); } }
 
 makeGrain(); makeStarSprite(); build();
 let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { build(); if (reduce) frame(performance.now(), true); }, 150); });
@@ -864,7 +866,9 @@ if (!reduce) {
       } else addEventListener('deviceorientation', onOri);
     }
   } catch (e) {}
-  requestAnimationFrame(frame);
+  if ('IntersectionObserver' in window) new IntersectionObserver(es => { onScreen = es[es.length - 1].isIntersecting; wake(); }).observe(hero);
+  document.addEventListener('visibilitychange', wake);
+  wake();
 }
 })();
 </script>
