@@ -188,7 +188,6 @@ function paintFar(ctx) {
     ? [[-170, 40, 30], [-125, 34, 40], [-84, 28, 26], [44, 48, 38], [100, 40, 32], [146, 30, 22]]
     : [[-205, 34, 24], [-162, 42, 32], [-112, 38, 42], [-70, 28, 26], [42, 50, 38], [104, 44, 34], [156, 36, 26], [205, 30, 20]];
   for (const [dx, w, h] of blocks) paintBlock(ctx, L.tower + dx * sc, w * sc, h * sc);
-  paintTower(ctx, L.tower, 22 * sc, 120 * sc);
   // headland body
   ctx.beginPath(); ctx.moveTo(L.hlStart - 4, hz + 1);
   for (let x = L.hlStart; x <= W + M; x += 3) ctx.lineTo(x, hlY(x));
