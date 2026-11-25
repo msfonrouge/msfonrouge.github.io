@@ -62,6 +62,11 @@ h2 { font: 500 12px var(--sans); letter-spacing: .16em; text-transform: uppercas
 .list .desc a, .list .reads a { color: var(--soft); }
 .list a:hover .title { color: #fff; text-decoration: underline; text-decoration-color: var(--ember); }
 .list a.t { text-decoration: none; }
+/* A project block with a site is clickable as a whole: the title link covers the block, inner links stay on top */
+.list li > div { position: relative; }
+.list a.t::after { content: ""; position: absolute; inset: 0; }
+.list .desc a, .list .reads a { position: relative; z-index: 1; }
+.list li:has(a.t):hover .title { color: #fff; text-decoration: underline; text-decoration-color: var(--ember); }
 
 .elsewhere { display: flex; flex-wrap: wrap; gap: 8px 28px; }
 footer { padding: 72px 0 56px; color: var(--faint); font: 14px var(--sans); }
